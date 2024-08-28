@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<style>
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+</style>
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <form id='search' class="d-flex justify-content-center mb-4" action="{% url 'news' %}" method="get">
+                <input id="search-input" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
+                       name="search_news" value="{{ search_news }}">
+                <button id="search-button" class="btn btn-warning" type="submit">Поиск</button>
+            </form>
+
+
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
+    {% for article in articles %}
+    <div class="card mb-3 w-100">
+        <a href="{% url 'article' article.id %}" class="stretched-link" target="_blank"></a>
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ article.image.url }}" class="card-img" alt="{{ article.title }}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text">{{ article.content|striptags|truncatechars:200 }}</p>
+                    <p class="card-text"><small class="text-muted">{{ article.published_date|date:"d.m.Y" }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'main/pagination.html' with queryset=articles  %}
+
+{% endblock %}
+
+
+
+
+
+

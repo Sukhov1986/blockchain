@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="container mt-5">
+    <div class="row d-flex flex-wrap justify-content-center">
+        <div class="col-md-4 mb-3">
+            <a style="display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 10px;" href="{% url 'edit-account' %}" class="btn btn-warning">Редактировать профиль</a>
+            <div class="card border shadow">
+                <img src="{{ profile.image.url }}" class="card-img-top" alt="Profile Image">
+                <div class="card-body text-center">
+                    <p class="card-text">{{ profile.info }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 mb-3">
+            <div class="card border shadow">
+                <div class="card-header">
+                    <h5 class="card-title">Моя информация</h5>
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="card-body">
+                    <p><strong>Имя:</strong> {{profile.name}}</p>
+                    <p><strong>Email:</strong> {{ profile.email }}</p>
+                    <p><strong>Имя пользователя:</strong> {{ profile.user.username }}</p>
+                </div>
+            </div>
+            <div class="card border shadow mt-3">
+                <div class="card-header">
+                    <h5>Социальные сети</h5>
+                </div>
+                <div class="card-body social-links">
+                    {% if profile.social_vk %}
+                    <a href="{{ profile.social_vk }}" target="_blank">
+                        <img src="{% static 'images/free-icon-vk-2504953.png' %}" alt="VK" style="width: 40px; margin: 5px;">
+                    </a>
+                    {% endif %}
+                    {% if profile.social_facebook %}
+                    <a href="{{ profile.social_facebook }}" target="_blank">
+                        <img src="{% static 'images/free-icon-facebook-733547.png' %}" alt="Facebook" style="width: 40px; margin: 5px;">
+                    </a>
+                    {% endif %}
+                    {% if profile.social_twitter %}
+                    <a href="{{ profile.social_twitter }}" target="_blank">
+                        <img src="{% static 'images/free-icon-twitter-1409937.png' %}" alt="Twitter" style="width: 40px; margin: 5px;">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
